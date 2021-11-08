@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'com.hypeflame'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "com.github.tomakehurst:wiremock-jre8:2.31.0"
+    testImplementation 'org.json:json:20210307'
+    testImplementation 'org.springframework:spring-web:5.3.12'
+    testImplementation 'au.com.dius.pact:provider:4.2.14'
+    testImplementation 'au.com.dius.pact.provider:junit5:4.2.14'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+    environment("pact.provider.version", System.getenv("PACT_PROVIDER_VERSION") ?: "")
+    environment("pact.verifier.publishResults", true)
+}
